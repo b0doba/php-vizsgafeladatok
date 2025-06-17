@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Departures;
+use App\Models\Destination;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        Destination::factory(10)->create()->each(function ($destination) {
+            Departures::factory(3)->create([
+                'destination_id' => $destination->id,
+            ]);
+        });
     }
 }
